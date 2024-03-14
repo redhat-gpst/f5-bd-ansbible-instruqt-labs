@@ -1,0 +1,34 @@
+- name: Test
+  hosts: lb
+  connection: local
+  gather_facts: no
+
+  vars:
+    as3_uri: "https://api.github.com/repos/F5Networks/f5-appsvcs-extension/releases/latest"
+  
+  tasks:
+
+  - name: Query BIG-IP facts
+    f5networks.f5_modules.bigip_device_info:
+      provider:
+        server: "{{ ansible_host }}"
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        server_port: "{{ server_port }}"
+        no_f5_teem: yes
+        validate_certs: "no"
+      gather_subset:
+        - iapplx-packages
+    register: bigip_device_facts
+
+  - name: "Show if AS3 Installed"
+    debug: "msg={{ item }}"
+    loop: "{{ bigip_device_facts.iapplx_packages | json_query(query_string) }}"
+    vars:
+      query_string: "[?name=='f5-appsvcs'].package_name"
+    register: output
+
+  - name: debug
+    debug:
+      var: output.results[0].item
+ 

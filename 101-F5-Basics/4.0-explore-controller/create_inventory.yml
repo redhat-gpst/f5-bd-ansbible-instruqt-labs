@@ -1,0 +1,68 @@
+---
+- name: setup aap for lab
+  hosts: controller
+  gather_facts: false
+
+  tasks:
+    - name: create inventory
+      awx.awx.inventory:
+        name: "Workshop Inventory"
+        organization: "Default"
+        state: present
+        validate_certs: false
+        controller_username: admin
+        controller_password: ansible123!
+      
+    - name: add hosts
+      awx.awx.host:
+        name: "{{ item }}"
+        inventory: "Workshop Inventory"
+        state: present
+        variables:
+          ansible_host: "{{ hostvars[item].ansible_host }}"
+          ansible_user: "rhel"
+          ansible_password: "ansible123!"
+          ansible_port: 22
+          ansible_python_interpreter: /usr/bin/python3
+        validate_certs: false
+        controller_username: admin
+        controller_password: ansible123!
+      loop:
+         - f5
+         - ansible
+         - node1
+         - node2
+
+    - name: Add web group
+      awx.awx.group:
+        name: "web"
+        description: "Web servers"
+        inventory: "Workshop Inventory" 
+        hosts:
+          - node1
+          - node2
+        validate_certs: false
+        controller_username: admin
+        controller_password: ansible123!
+
+    - name: Add lb group
+      awx.awx.group:
+        name: "lb"
+        description: "Web servers"
+        inventory: "Workshop Inventory" 
+        hosts:
+          - f5
+        validate_certs: false
+        controller_username: admin
+        controller_password: ansible123!
+
+    - name: Add controller group
+      awx.awx.group:
+        name: "controller"
+        description: "Web servers"
+        inventory: "Workshop Inventory" 
+        hosts:
+          - ansible
+        validate_certs: false
+        controller_username: admin
+        controller_password: ansible123!

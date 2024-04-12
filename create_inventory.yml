@@ -48,7 +48,7 @@
     - name: Add lb group
       awx.awx.group:
         name: "lb"
-        description: "Web servers"
+        description: "F5 Big-IP LB"
         inventory: "Workshop Inventory" 
         hosts:
           - f5
@@ -59,7 +59,7 @@
     - name: Add controller group
       awx.awx.group:
         name: "controller"
-        description: "Web servers"
+        description: "AAP Controller"
         inventory: "Workshop Inventory" 
         hosts:
           - ansible

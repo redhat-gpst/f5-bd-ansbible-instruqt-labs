@@ -7,10 +7,10 @@
 
 - name: Visualizer adding Array Objects
   uri: 
-    url: "https://10.1.1.4/api/v2/workflow_job_templates/{{workflow_id.json.id}}/workflow_nodes/"
+    url: "https://controller/api/v2/workflow_job_templates/{{workflow_id.json.id}}/workflow_nodes/"
     method: POST
     user: "admin"
-    password: "Ansible123!"
+    password: "ansible123!"
     force_basic_auth: yes
     return_content: yes
     body: '{"unified_job_template": {{item |int}} }'
@@ -33,10 +33,10 @@
 
 - name: Moving Objects Part 1
   uri: 
-    url: "https://10.1.1.4/api/v2/workflow_job_template_nodes/{{visulizer_id_array[0]}}/success_nodes/"
+    url: "https://controller/api/v2/workflow_job_template_nodes/{{visulizer_id_array[0]}}/success_nodes/"
     method: POST
     user: "admin"
-    password: "Ansible123!"
+    password: "ansible123!"
     force_basic_auth: yes
     return_content: yes
     body: '{"assoicate": true, "id": {{visulizer_id_array[1] |int }} }'
@@ -46,10 +46,10 @@
 
 - name: Moving Objects Part 2
   uri: 
-    url: "https://10.1.1.4/api/v2/workflow_job_template_nodes/{{visulizer_id_array[1]}}/success_nodes/"
+    url: "https://controller/api/v2/workflow_job_template_nodes/{{visulizer_id_array[1]}}/success_nodes/"
     method: POST
     user: "admin"
-    password: "Ansible123!"
+    password: "ansible123!"
     force_basic_auth: yes
     return_content: yes
     body: '{"assoicate": true, "id": {{visulizer_id_array[2] |int }} }'
@@ -59,10 +59,10 @@
 
 - name: Moving Objects Part 3
   uri: 
-    url: "https://10.1.1.4/api/v2/workflow_job_template_nodes/{{visulizer_id_array[0]}}/failure_nodes/"
+    url: "https://controller/api/v2/workflow_job_template_nodes/{{visulizer_id_array[0]}}/failure_nodes/"
     method: POST
     user: "admin"
-    password: "Ansible123!"
+    password: "ansible123!"
     force_basic_auth: yes
     return_content: yes
     body: '{"assoicate": true, "id": {{visulizer_id_array[3] |int }} }'
@@ -72,10 +72,10 @@
 
 - name: Moving Objects Part 4
   uri: 
-    url: "https://10.1.1.4/api/v2/workflow_job_template_nodes/{{visulizer_id_array[1]}}/failure_nodes/"
+    url: "https://controller/api/v2/workflow_job_template_nodes/{{visulizer_id_array[1]}}/failure_nodes/"
     method: POST
     user: "admin"
-    password: "Ansible123!"
+    password: "ansible123!"
     force_basic_auth: yes
     return_content: yes
     body: '{"assoicate": true, "id": {{visulizer_id_array[4] |int }} }'
@@ -85,10 +85,10 @@
 
 - name: Moving Objects Part 5
   uri: 
-    url: "https://10.1.1.4/api/v2/workflow_job_template_nodes/{{visulizer_id_array[2]}}/failure_nodes/"
+    url: "https://controller/api/v2/workflow_job_template_nodes/{{visulizer_id_array[2]}}/failure_nodes/"
     method: POST
     user: "admin"
-    password: "Ansible123!"
+    password: "ansible123!"
     force_basic_auth: yes
     return_content: yes
     body: '{"assoicate": true, "id": {{visulizer_id_array[5] |int }} }'
@@ -119,7 +119,7 @@
 #     - {name: "Enable node", playbook: "enable_node.yml" }   19
 #     - {name: "Detach iRule", playbook: "detach_irule.yml" } 20
 
-# curl -i -u "admin:Ansible123!" -H "Accept: application/json" -H "Content-Type:application/json" -X POST https://10.1.1.4/api/v2/workflow_job_template_nodes/16/success_nodes/ --data '{"assoicate": true, "id":18 }'
-# curl -i -u "admin:Ansible123!" -H "Accept: application/json" -H "Content-Type:application/json" -X POST https://10.1.1.4/api/v2/workflow_job_template_nodes/18/success_nodes/ --data '{"assoicate": true, "id":19 }'
-# curl -i -u "admin:Ansible123!" -H "Accept: application/json" -H "Content-Type:application/json" -X POST https://10.1.1.4/api/v2/workflow_job_template_nodes/19/success_nodes/ --data '{"assoicate": true, "id":20 }'
-# curl -i -u "admin:Ansible123!" -H "Accept: application/json" -H "Content-Type:application/json" -X POST https://10.1.1.4/api/v2/workflow_job_template_nodes/17/always_nodes/ --data '{"assoicate": true, "id":20 }'
+# curl -i -u "admin:ansible123!" -H "Accept: application/json" -H "Content-Type:application/json" -X POST https://controller/api/v2/workflow_job_template_nodes/16/success_nodes/ --data '{"assoicate": true, "id":18 }'
+# curl -i -u "admin:ansible123!" -H "Accept: application/json" -H "Content-Type:application/json" -X POST https://controller/api/v2/workflow_job_template_nodes/18/success_nodes/ --data '{"assoicate": true, "id":19 }'
+# curl -i -u "admin:ansible123!" -H "Accept: application/json" -H "Content-Type:application/json" -X POST https://controller/api/v2/workflow_job_template_nodes/19/success_nodes/ --data '{"assoicate": true, "id":20 }'
+# curl -i -u "admin:ansible123!" -H "Accept: application/json" -H "Content-Type:application/json" -X POST https://controller/api/v2/workflow_job_template_nodes/17/always_nodes/ --data '{"assoicate": true, "id":20 }'

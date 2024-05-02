@@ -1,0 +1,20 @@
+---
+- name: setup project and EE for lab
+  hosts: controller
+  gather_facts: false
+
+  tasks:
+    
+     - name: create project
+      awx.awx.project:
+        name: "Ansible Project Demos"
+        description: "Project for F5 Instruqt Labs"
+        organization: "Default"
+        scm_type: git
+        scm_url: https://github.com/redhat-gpst/f5-bd-ansible-instruqt-labs.git
+        state: present
+        validate_certs: false
+        controller_username: admin
+        controller_password: ansible123!
+
+   

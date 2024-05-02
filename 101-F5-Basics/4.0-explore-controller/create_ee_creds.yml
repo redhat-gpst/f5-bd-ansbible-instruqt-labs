@@ -1,0 +1,34 @@
+---
+- name: setup project and EE for lab
+  hosts: controller
+  gather_facts: false
+
+  tasks:
+    
+    - name: add execution environmebnt
+      awx.awx.execution_environment:
+        name: "F5 EE"
+        image: quay.io/cnorvill/f5-101-min:v1.3
+        state: present
+        validate_certs: false
+        controller_username: admin
+        controller_password: ansible123!        
+
+    - name: fetch private key
+      slurp:
+        src: $HOME/.ssh/id_rsa
+      register: lab_ssh_key
+      delegate_to: localhost
+
+    - name: create machine credential
+      awx.awx.credential:
+        name: Workshop credential
+        credential_type: Machine
+        organization: "Default"
+        inputs:
+          username: rhel
+          ssh_key_data: "{{ lab_ssh_key['content'] | b64decode }}"  
+        state: present
+        validate_certs: false
+        controller_username: admin
+        controller_password: ansible123!

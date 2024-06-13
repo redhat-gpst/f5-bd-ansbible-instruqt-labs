@@ -20,6 +20,6 @@
       bigip_node:
         provider: "{{provider}}"
         name: "{{ hostvars[item].inventory_hostname }}"
-        host: "{{ hostvars[item].ansible_hostname }}"
+        host: "{{ hostvars[item].ansible_host }}"
         state: "disabled"
       loop: "{{ groups['web'] }}"

@@ -11,22 +11,15 @@
     - name: Setting up provider values
       set_fact:
        provider:
-        server: "{{private_ip}}"
-        server_port: "8443"
-        validate_certs: "False"
-
-    - name: Setting up provider values
-      set_fact:
-       provider:
-        server: "{{ansible_host}}"
-        server_port: "{{server_port}}"
-        validate_certs: "False"
-      when: server_port is defined
+          server: "{{ ansible_host }}"
+          server_port: 8443
+          no_f5_teem: true
+          validate_certs: false
 
     - name: ENABLE NODES
       bigip_node:
         provider: "{{provider}}"
         name: "{{hostvars[item].inventory_hostname}}"
-        host: "{{hostvars[item].private_ip}}"
+        host: "{{hostvars[item].ansible_host}}"
         state: "enabled"
       loop: "{{ groups['web'] }}"

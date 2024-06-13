@@ -19,7 +19,7 @@
     - name: CREATE NODES
       bigip_node:
         provider: "{{provider}}"
-        host: "{{hostvars[item].private_ip}}"
+        host: "{{hostvars[item].ansible_host}}"
         name: "{{hostvars[item].inventory_hostname}}"
       loop: "{{ groups['web'] }}"
 

@@ -12,6 +12,7 @@
       set_fact:
        provider:
           server: "{{ ansible_host }}"
+          server_port: 8443
           no_f5_teem: true
           validate_certs: false
 
